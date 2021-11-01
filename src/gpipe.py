@@ -80,7 +80,7 @@ def create_model_from_pretrained(model_name):
 
 
 if __name__ == "__main__":
-    world_size = 4
+    world_size = 2
 
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
     tokenizer.pad_token = tokenizer.eos_token
@@ -88,14 +88,14 @@ if __name__ == "__main__":
     model = create_model_from_pretrained(model_name="gpt2")
     model = GPipe(
         model,
-        balance=[4, 3, 3, 4],
-        devices=[0, 1, 2, 3],
+        balance=[7, 7],
+        devices=[0, 1],
         chunks=world_size,
     )
 
     datasets = load_dataset("squad").data["train"]["context"]
     datasets = [str(sample) for sample in datasets]
-    data_loader = DataLoader(datasets, batch_size=8, num_workers=8)
+    data_loader = DataLoader(datasets, batch_size=8, num_workers=2)
 
     optimizer = Adam(model.parameters(), lr=3e-5)
     loss_fn = nn.CrossEntropyLoss()
@@ -117,5 +117,5 @@ if __name__ == "__main__":
 
         if i % 10 == 0:
             print(f"step: {i}, loss: {loss}")
-        if i == 300:
+        if i == 100:
             break

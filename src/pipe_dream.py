@@ -107,7 +107,7 @@ def loss_fn(logits, labels):
 if __name__ == "__main__":
     dist.init_process_group("nccl")
     world_size, rank = dist.get_world_size(), dist.get_rank()
-    batch_size, train_steps = 16, 300
+    batch_size, train_steps = 4, 100
     train_samples = batch_size * train_steps
 
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
@@ -143,7 +143,7 @@ if __name__ == "__main__":
             # uniform length batching
             # https://mccormickml.com/2020/07/29/smart-batching-tutorial/
             batch_size=batch_size,
-            num_workers=8,
+            num_workers=2,
             collate_fn=collate_fn,
             shuffle=False,
         )

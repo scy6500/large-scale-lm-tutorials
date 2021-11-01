@@ -18,7 +18,7 @@ datasets = [
     }
     for p, h, l in zip(datasets[2], datasets[5], datasets[9])
 ]
-data_loader = DataLoader(datasets, batch_size=128, num_workers=4)
+data_loader = DataLoader(datasets, batch_size=64, num_workers=2)
 
 # 2. create model and tokenizer
 model_name = "bert-base-cased"
@@ -27,7 +27,7 @@ model = BertForSequenceClassification.from_pretrained(model_name, num_labels=3).
 
 # 3. make data parallel module
 # device_ids: 사용할 디바이스 리스트 / output_device: 출력값을 모을 디바이스
-model = nn.DataParallel(model, device_ids=[0, 1, 2, 3], output_device=0)
+model = nn.DataParallel(model, device_ids=[0, 1], output_device=0)
 
 # 4. create optimizer and loss fn
 optimizer = Adam(model.parameters(), lr=3e-5)
@@ -58,5 +58,5 @@ for i, data in enumerate(data_loader):
     if i % 10 == 0:
         print(f"step:{i}, loss:{loss}")
 
-    if i == 300:
+    if i == 100:
         break

@@ -39,7 +39,7 @@ sampler = DistributedSampler(
 data_loader = DataLoader(
     datasets,
     batch_size=32,
-    num_workers=4,
+    num_workers=2,
     sampler=sampler,
     shuffle=False,
     pin_memory=True,
@@ -80,5 +80,5 @@ for i, data in enumerate(data_loader):
     if i % 10 == 0 and rank == 0:
         print(f"step:{i}, loss:{loss}")
 
-    if i == 300:
+    if i == 100:
         break
