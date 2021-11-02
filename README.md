@@ -24,9 +24,9 @@
 ## Environments
 ### Local Environments
 - Linux Ubuntu 18.04 LTS
-- 4 * A100 GPU
+- 2 * T4 GPU
 - Python 3.7
-- pytorch==1.9.0+cu111
+- pytorch==1.10.0+cu111
 
 ### Docker Environments
 - `docker pull pytorch/pytorch:1.9.0-cuda11.1-cudnn8-devel`
