@@ -17,7 +17,7 @@ input = torch.ones(1) * rank
 # rank==3 => [3]
 
 if rank == 0:
-    outputs_list = [torch.zeros(1), torch.zeros(1), torch.zeros(1), torch.zeros(1)]
+    outputs_list = [torch.zeros(1), torch.zeros(1)]
     dist.gather(input, gather_list=outputs_list, dst=0)
     print(outputs_list)
 else:

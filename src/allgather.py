@@ -17,9 +17,7 @@ input = torch.ones(1).to(torch.cuda.current_device()) * rank
 
 outputs_list = [
     torch.zeros(1, device=torch.device(torch.cuda.current_device())),
-    torch.zeros(1, device=torch.device(torch.cuda.current_device())),
-    torch.zeros(1, device=torch.device(torch.cuda.current_device())),
-    torch.zeros(1, device=torch.device(torch.cuda.current_device())),
+    torch.zeros(1, device=torch.device(torch.cuda.current_device()))
 ]
 
 dist.all_gather(tensor_list=outputs_list, tensor=input)
